@@ -11,24 +11,32 @@ import java.util.Stack;
 public class LexicographicallySmallestStringStack {
     public static String smallestStringByStack(String s) {
         Stack<Character> stack = new Stack<>();
-        // Code by FlareStudy
+
+        // Iterate through the string
         for (int i = 0; i < s.length(); i++) {
-            while (!stack.isEmpty() && stack.peek() > s.charAt(i)) {
+            char currentChar = s.charAt(i);
+
+            // if stack is not empty and we can remove top of stack to get a smaller
+            // lexicographical order
+            if (!stack.isEmpty() && stack.peek() > currentChar) {
+                // Remove the top of stack
                 stack.pop();
             }
-            stack.push(s.charAt(i));
+            // Code by FlareStudy
+            // Push current character onto stack
+            stack.push(currentChar);
         }
-        // Code by FlareStudy
-        // Form the smallest string from the stack
+
+        // Build the result string from stack
         StringBuilder result = new StringBuilder();
+        // The stack will contain the smallest lexicographical order
         while (!stack.isEmpty()) {
-            result.insert(0, stack.pop());
+            result.insert(0, stack.pop()); // Insert characters in reverse order
         }
         // Code by FlareStudy
         return result.toString();
     }
 
-    // Code by FlareStudy
     public static void main(String[] args) {
         String input = "acdb";
         System.out.println("Lexicographically Smallest String (Stack): " + smallestStringByStack(input));
